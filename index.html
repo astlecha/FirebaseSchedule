@@ -2,16 +2,95 @@
 <html>
 <head>
 	<title>Train Schedule</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<!-- <style src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></style> -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
 </head>
 <body>
 
+<div class="jumbotron">
+  <h1>Train Schedule</h1>
+</div>
 
-<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
-<script
-  src="https://code.jquery.com/jquery-3.2.1.min.js"
-  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-  crossorigin="anonymous"></script>
-<script type="text/javascript"></script>
+<div class="container">
+	<div class="panel panel-default">
+	  <!-- Default panel contents -->
+	  <div class="panel-heading">Train Schedule</div>
+	  <!-- Table -->
+	  <table class="table table-striped" id="table">
+		  <thead>
+		    <tr>
+		      <th>#</th>
+		      <th>Name</th>
+		      <th>Destination</th>
+		      <th>Time</th>
+		      <th>Freq</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr>
+		      <th scope="row">1</th>
+		      <td>Amtrak</td>
+		      <td>Houstan, TX</td>
+		      <td>21:20</td>
+		      <td>15</td>
+		    </tr>
+		    <tr>
+		      <th scope="row">2</th>
+		      <td>ViaRail</td>
+		      <td>Geneva, Switzerland</td>
+		      <td>08:32</td>
+		      <td>70</td>
+		    </tr>
+		  </tbody>
+		</table>
+	</div>
+</div>
+
+<div class="container">
+	<div class="panel panel-default">
+	  <!-- Default panel contents -->
+	  <div class="panel-heading">Train Schedule</div>
+		<form id="user-input">
+		  <div class="form-group">
+		    <label for="exampleInputName">Train Name</label>
+		    <input type="text" class="form-control" id="form-train-name" placeholder="What is the name of your train?">
+		  </div>
+		  <div class="form-group">
+		    <label for="exampleInputDest">Destination</label>
+		    <input type="text" class="form-control" id="form-destination" placeholder="Where are you headed?">
+		  </div>
+		  <div class="form-group">
+		    <label for="exampleInputTime">First Train Time (HH:mm military time)</label>
+		    <input type="text" class="form-control" id="form-train-time" placeholder="What time does it depart?">
+		  </div>
+		  <div class="form-group">
+		    <label for="exampleInputFreq">Frequency (min)</label>
+		    <input type="text" class="form-control" id="form-frequency" placeholder="What is the train frequency?">
+		  </div>
+		  <button type="button" class="btn btn-primary" id="submit-button">Submit</button>
+		</form>
+	</div>
+</div>
+
+
+<style type="text/css">
+
+.jumbotron {
+	padding: 40px;
+	text-align: center;
+	background-color: #85bfd6;
+	color: #0e230c;
+}	
+
+#user-input {
+	padding: 20px;
+}
+
+</style>
+
+<script src="script/logic.js"></script>
 
 </body>
 </html>
