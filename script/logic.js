@@ -15,6 +15,7 @@
   var destination = '';
   var trainTime = '';
   var frequency = '';
+  // routeNumber = 2;
 
   database.ref().on('value', function(snapshot){
 
@@ -22,20 +23,70 @@
   	$('#submit-button').on('click', function(event){
   		event.preventDefault();
 
+      // routeNumber++;
+
   		trainName = $('#form-train-name').val().trim();
   		destination = $('#form-destination').val().trim();
   		trainTime = $('#form-train-time').val().trim();
   		frequency = $('#form-frequency').val().trim();
 
-  		database.ref().push({
-  			trainName: trainName,
-  			destination: destination,
-  			trainTime: trainTime,
-  			frequency: frequency
-  		});
+      var newTrainData = {
+        trainName: trainName,
+          destination: destination,
+          trainTime: trainTime,
+          frequency: frequency
+        };
+    	
+      //Pushes new data to firebase
+      database.ref().push(newTrainData);
 
 
+      database.ref().on("child_added", function(snapshot) {
 
-  	});
+      // Log everything that's coming out of snapshot
+      console.log(snapshot.val());
+      console.log(snapshot.val().trainName);
+      console.log(snapshot.val().destination);
+      console.log(snapshot.val().trainTime);
+      console.log(snapshot.val().frequency);
+
+      //We may have to do some kind of for loop?? Need to create a table row and append
+        //(see to-do list example)
+      //append a tr, th, and td for each snapshot.val
+
+      var tableRow = $('<tr>');
+      var columnNumber = $('<th>')
+        columnNumber.attr('scope', 'row');
+        columnNumber.text(routeNumber);
+
+      var nameColumn = $('<td>')
+        nameColumn.append(snapshot.val().trainName);
+
+      var destinationColumn = $('<td>')
+        destinationColumn.append(snapshot.val().destination);
+
+      var timeColumn = $('<td>')
+        timeColumn.append(snapshot.val().trainTime);
+
+      var frequencyColumn = $('<td>')
+        frequencyColumn.append(snapshot.val().frequency);
+
+
+      tableRow.append(columnNumber);
+      tableRow.append(nameColumn);
+      tableRow.append(destinationColumn);
+      tableRow.append(timeColumn);
+      tableRow.append(frequencyColumn);
+
+      $('#table-row').append(tableRow);
+
+    // Handle the errors
+
+    }, function(errorObject) {
+
+      console.log("Errors handled: " + errorObject.code);
+
+      });
+
   })
 
