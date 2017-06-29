@@ -17,8 +17,6 @@
   var frequency = '';
   // routeNumber = 2;
 
-  database.ref().on('value', function(snapshot){
-
 
   	$('#submit-button').on('click', function(event){
   		event.preventDefault();
@@ -41,7 +39,7 @@
       database.ref().push(newTrainData);
 
 
-      database.ref().on('child_added', function(snapshot) {
+      database.ref().on('child_added', function(snapshot, prevChildKey) {
 
       // Log everything that's coming out of snapshot
       console.log(snapshot.val());
@@ -55,6 +53,13 @@
       $('#form-destination').val('');
       $('#form-train-time').val('');
       $('#form-frequency').val('');
+// Handle the errors
+
+    }, function(errorObject) {
+
+      console.log('Errors handled: ' + errorObject.code);
+
+      });
 
       //We may have to do some kind of for loop?? Need to create a table row and append
         //(see to-do list example)
@@ -77,22 +82,6 @@
       var frequencyColumn = $('<td>')
         frequencyColumn.append(snapshot.val().frequency);
 
-
-      tableRow.append(columnNumber);
-      tableRow.append(nameColumn);
-      tableRow.append(destinationColumn);
-      tableRow.append(timeColumn);
-      tableRow.append(frequencyColumn);
-
-      $('#table-row').append(tableRow);
-
-    // Handle the errors
-
-    }, function(errorObject) {
-
-      console.log('Errors handled: ' + errorObject.code);
-
-      });
-
-  })
+      $('#table > tbody').append('<tr><td>'+routeNumber+'</td><td>'+trainName+'</td><td>'
+        +destination+'</td><td>'+trainTime+'</td><td>'+frequency+'</td></tr>');
 
