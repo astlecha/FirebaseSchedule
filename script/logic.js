@@ -15,13 +15,10 @@
   var destination = '';
   var trainTime = '';
   var frequency = '';
-  // routeNumber = 2;
 
 
   	$('#submit-button').on('click', function(event){
   		event.preventDefault();
-
-      // routeNumber++;
 
   		trainName = $('#form-train-name').val().trim();
   		destination = $('#form-destination').val().trim();
@@ -69,6 +66,6 @@ database.ref().on('child_added', function(snapshot, prevChildKey) {
 
       //append a tr, th, and td for each snapshot.val
 
-      $('#table > tbody').append('<tr><td>'+routeNumber+'</td><td>'+trainName+'</td><td>'
-        +destination+'</td><td>'+trainTime+'</td><td>'+frequency+'</td></tr>');
+      $('#table > tbody').append('<tr><td>'+trainName+'</td><td>'+destination
+        +'</td><td>'+trainTime+'</td><td>'+frequency+'</td></tr>');
 });
