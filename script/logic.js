@@ -41,7 +41,7 @@
       database.ref().push(newTrainData);
 
 
-      database.ref().on("child_added", function(snapshot) {
+      database.ref().on('child_added', function(snapshot) {
 
       // Log everything that's coming out of snapshot
       console.log(snapshot.val());
@@ -49,6 +49,12 @@
       console.log(snapshot.val().destination);
       console.log(snapshot.val().trainTime);
       console.log(snapshot.val().frequency);
+
+      //Clear text entry boxes
+      $('#form-train-name').val('');
+      $('#form-destination').val('');
+      $('#form-train-time').val('');
+      $('#form-frequency').val('');
 
       //We may have to do some kind of for loop?? Need to create a table row and append
         //(see to-do list example)
@@ -84,7 +90,7 @@
 
     }, function(errorObject) {
 
-      console.log("Errors handled: " + errorObject.code);
+      console.log('Errors handled: ' + errorObject.code);
 
       });
 
