@@ -63,11 +63,30 @@ database.ref().on('child_added', function(snapshot, prevChildKey) {
     var trainName = snapshot.val().name;
     var destination = snapshot.val().dest;
     var frequency = snapshot.val().freq;
-    var nextArrival = snapshot.val().time;
-    var minutesAway = snapshot.val().time;
+
+
+//=========================Minute Conversion===============================
+
+//Accounts for weird time overlap, sends date back one year
+var timeConvert = moment(time, 'hh:mm').subtract(1, year);
+  console.log(timeConvert);
+
+var currentTime = moment();
+
+//Turns converted first train time into minutes
+var minTime = moment().diff(moment(timeConvert), 'minutes');
+  console.log(minTime);
+
+//Gets minute remainder to distinguish mins until next train
+var tRemainder = minTime%freq;
+  console.log(tRemainder);
+
+
+    var minutesAway = freq - tRemainder;
+    var nextArrival = moment().add(minutesAway, 'minutes');
+
 
       //append a tr, th, and td for each snapshot.val
-
       $('#table > tbody').append('<tr><td>'+trainName+'</td><td>'+destination+'</td><td>'
         +frequency+'</td><td>'+nextArrival+'</td><td>'+minutesAway+'</td></tr>');
 });
