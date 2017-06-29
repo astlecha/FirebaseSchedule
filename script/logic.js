@@ -27,10 +27,10 @@ $('#submit-button').on('click', function(event){
 
     var newTrainData = {
       name: trainName,
-        dest: destination,
-        time: trainTime,
-        freq: frequency
-      };
+      dest: destination,
+      time: trainTime,
+      freq: frequency
+    };
   	
     //Pushes new data to firebase
     database.ref().push(newTrainData);
@@ -47,7 +47,6 @@ $('#submit-button').on('click', function(event){
     $('#form-train-time').val("");
     $('#form-frequency').val("");
 
-    //Account for errors
   });
 
 
