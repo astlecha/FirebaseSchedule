@@ -38,50 +38,37 @@
       //Pushes new data to firebase
       database.ref().push(newTrainData);
 
-
-      database.ref().on('child_added', function(snapshot, prevChildKey) {
-
-      // Log everything that's coming out of snapshot
-      console.log(snapshot.val());
-      console.log(snapshot.val().trainName);
-      console.log(snapshot.val().destination);
-      console.log(snapshot.val().trainTime);
-      console.log(snapshot.val().frequency);
-
       //Clear text entry boxes
       $('#form-train-name').val('');
       $('#form-destination').val('');
       $('#form-train-time').val('');
       $('#form-frequency').val('');
-// Handle the errors
 
+      //Account for errors
     }, function(errorObject) {
 
       console.log('Errors handled: ' + errorObject.code);
 
       });
 
-      //We may have to do some kind of for loop?? Need to create a table row and append
-        //(see to-do list example)
+
+database.ref().on('child_added', function(snapshot, prevChildKey) {
+
+    // Log everything that's coming out of snapshot
+    console.log(snapshot.val());
+    console.log(snapshot.val().trainName);
+    console.log(snapshot.val().destination);
+    console.log(snapshot.val().trainTime);
+    console.log(snapshot.val().frequency);
+
+    var trainName = snapshot.val().trainName;
+    var destination = snapshot.val().destination;
+    var trainTime = snapshot.val().trainTime;
+    var frequency = snapshot.val().frequency;
+
+
       //append a tr, th, and td for each snapshot.val
-
-      var tableRow = $('<tr>');
-      var columnNumber = $('<th>')
-        columnNumber.attr('scope', 'row');
-        columnNumber.text(routeNumber);
-
-      var nameColumn = $('<td>')
-        nameColumn.append(snapshot.val().trainName);
-
-      var destinationColumn = $('<td>')
-        destinationColumn.append(snapshot.val().destination);
-
-      var timeColumn = $('<td>')
-        timeColumn.append(snapshot.val().trainTime);
-
-      var frequencyColumn = $('<td>')
-        frequencyColumn.append(snapshot.val().frequency);
 
       $('#table > tbody').append('<tr><td>'+routeNumber+'</td><td>'+trainName+'</td><td>'
         +destination+'</td><td>'+trainTime+'</td><td>'+frequency+'</td></tr>');
-
+});
