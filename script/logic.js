@@ -47,6 +47,7 @@ $('#submit-button').on('click', function(event){
     $('#form-train-time').val("");
     $('#form-frequency').val("");
 
+    //Account for errors
   });
 
 
@@ -61,12 +62,13 @@ database.ref().on('child_added', function(snapshot, prevChildKey) {
 
     var trainName = snapshot.val().name;
     var destination = snapshot.val().dest;
-    var trainTime = snapshot.val().time;
     var frequency = snapshot.val().freq;
-
+    var nextArrival = snapshot.val().time;
+    var minutesAway = snapshot.val().time;
 
       //append a tr, th, and td for each snapshot.val
 
-      $('#table > tbody').append('<tr><td>'+trainName+'</td><td>'+destination
-        +'</td><td>'+trainTime+'</td><td>'+frequency+'</td></tr>');
+      $('#table > tbody').append('<tr><td>'+trainName+'</td><td>'+destination+'</td><td>'
+        +frequency+'</td><td>'+nextArrival+'</td><td>'+minutesAway+'</td></tr>');
 });
+
