@@ -17,51 +17,52 @@
   var frequency = '';
 
 
-  	$('#submit-button').on('click', function(event){
-  		event.preventDefault();
+$('#submit-button').on('click', function(event){
+  	event.preventDefault();
 
-  		trainName = $('#form-train-name').val().trim();
-  		destination = $('#form-destination').val().trim();
-  		trainTime = $('#form-train-time').val().trim();
-  		frequency = $('#form-frequency').val().trim();
+  	trainName = $('#form-train-name').val().trim();
+  	destination = $('#form-destination').val().trim();
+  	trainTime = $('#form-train-time').val().trim();
+  	frequency = $('#form-frequency').val().trim();
 
-      var newTrainData = {
-        trainName: trainName,
-          destination: destination,
-          trainTime: trainTime,
-          frequency: frequency
-        };
-    	
-      //Pushes new data to firebase
-      database.ref().push(newTrainData);
+    var newTrainData = {
+      name: trainName,
+        dest: destination,
+        time: trainTime,
+        freq: frequency
+      };
+  	
+    //Pushes new data to firebase
+    database.ref().push(newTrainData);
 
-      //Clear text entry boxes
-      $('#form-train-name').val('');
-      $('#form-destination').val('');
-      $('#form-train-time').val('');
-      $('#form-frequency').val('');
+    //Log new data
+    console.log(newTrainData.name);
+    console.log(newTrainData.dest);
+    console.log(newTrainData.time);
+    console.log(newTrainData.freq);
 
-      //Account for errors
-    }, function(errorObject) {
+    //Clear text entry boxes
+    $('#form-train-name').val("");
+    $('#form-destination').val("");
+    $('#form-train-time').val("");
+    $('#form-frequency').val("");
 
-      console.log('Errors handled: ' + errorObject.code);
-
-      });
+  });
 
 
 database.ref().on('child_added', function(snapshot, prevChildKey) {
 
     // Log everything that's coming out of snapshot
     console.log(snapshot.val());
-    console.log(snapshot.val().trainName);
-    console.log(snapshot.val().destination);
-    console.log(snapshot.val().trainTime);
-    console.log(snapshot.val().frequency);
+    console.log(snapshot.val().name);
+    console.log(snapshot.val().dest);
+    console.log(snapshot.val().time);
+    console.log(snapshot.val().freq);
 
-    var trainName = snapshot.val().trainName;
-    var destination = snapshot.val().destination;
-    var trainTime = snapshot.val().trainTime;
-    var frequency = snapshot.val().frequency;
+    var trainName = snapshot.val().name;
+    var destination = snapshot.val().dest;
+    var trainTime = snapshot.val().time;
+    var frequency = snapshot.val().freq;
 
 
       //append a tr, th, and td for each snapshot.val
