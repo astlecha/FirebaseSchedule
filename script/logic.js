@@ -53,7 +53,6 @@ $('#submit-button').on('click', function(event){
 database.ref().on('child_added', function(snapshot, prevChildKey) {
 
     // Log everything that's coming out of snapshot
-    console.log(snapshot.val());
     console.log(snapshot.val().name);
     console.log(snapshot.val().dest);
     console.log(snapshot.val().time);
@@ -62,27 +61,36 @@ database.ref().on('child_added', function(snapshot, prevChildKey) {
     var trainName = snapshot.val().name;
     var destination = snapshot.val().dest;
     var frequency = snapshot.val().freq;
+    var trainTime = snapshot.val().time;
+
+
+    console.log('train time: '+trainTime);
+
 
 
 //=========================Minute Conversion===============================
 
 //Accounts for weird time overlap, sends date back one year
-var timeConvert = moment(time, 'hh:mm').subtract(1, year);
-  console.log(timeConvert);
+var timeConvert = moment(trainTime, "hh:mm").subtract(1, "years");
+  // console.log(timeConvert);
 
 var currentTime = moment();
+  console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
 
 //Turns converted first train time into minutes
-var minTime = moment().diff(moment(timeConvert), 'minutes');
-  console.log(minTime);
+var minTime = moment().diff(moment(timeConvert), "minutes");
 
 //Gets minute remainder to distinguish mins until next train
-var tRemainder = minTime%freq;
-  console.log(tRemainder);
+var tRemainder = minTime%frequency;
+  // console.log(tRemainder);
 
 
-    var minutesAway = freq - tRemainder;
-    var nextArrival = moment().add(minutesAway, 'minutes');
+    var minutesAway = frequency - tRemainder;
+    // console.log("mins away: "+minutesAway);
+    var nextArrivalMins = moment().add(minutesAway, 'minutes');
+      console.log("ARRIVAL TIME: " + moment(nextArrivalMins).format("hh:mm"));
+
+    var nextArrival = moment(nextArrivalMins).format("hh:mm");
 
 
       //append a tr, th, and td for each snapshot.val
